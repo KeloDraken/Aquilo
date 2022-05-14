@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any
 
 from aquilo.browser.elements import Element
-from aquilo.server import Server
+from aquilo.server import server
 
 HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent)
 
@@ -58,4 +58,4 @@ class Aquilo:
             tags.append(tag)
 
         build_html(self.title, tags)
-        Server.run_server()
+        server.serve()

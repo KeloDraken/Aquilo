@@ -5,7 +5,7 @@ from pathlib import Path
 HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent.parent)
 
 
-def run_server():
+def serve():
     print("Server listening on port localhost:8080...")
     httpd = HTTPServer(("localhost", 8080), Server)
     httpd.serve_forever()
