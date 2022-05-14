@@ -1,21 +1,23 @@
 from aquilo import Aquilo
 from aquilo.browser.elements.typography import h1, h2, p
 
-app = Aquilo("KeloDraken", "The web framework for pythoneers")
+app = Aquilo(title="Hello, world", description="Made with python")
 
 
 @app.route("/")
-def hello():
-    h1_styles = {"color": "pink"}
-    ht = {"font-size": "100px"}
-
+def home():
+    h1_styles = {
+        "font-size": "100px",
+        "color": "pink"
+    }
     elements = [
-        h1("Welcome to Aquilo, by Samkelo Drakenberg", ["h1_styles", "ht"]),
-        h2("The web framework for pythoneers"),
-        p("This was generated using python")
+        h1("Hello, world", ["h1_styles"]),
+        h2("made with python"),
+        p("because why not")
     ]
+
     app.register_elements(elements)
-    app.register_styles("h1_styles", [h1_styles, ht])
+    app.register_styles("h1_styles", [h1_styles])
 
 
 if __name__ == "__main__":
