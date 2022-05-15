@@ -1,11 +1,14 @@
-from aquilo import Aquilo, div, h1, h2, p, StyleSheet
+from aquilo import Aquilo, div, h1, h2, p, StyleSheet, StyleProps
 
 app = Aquilo(title="Hello, world", description="Made with python")
 
 
 @app.route("/")
 def home():
-    styles = StyleSheet.create({})
+    styles = StyleSheet.create({
+        StyleProps.fontSize: "43"
+    })
+
     text_styles = StyleSheet.create({})
 
     root = div(
