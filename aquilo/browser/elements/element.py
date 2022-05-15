@@ -12,4 +12,5 @@ class Element:
 
     def __call__(self, *args, **kwargs):
         self.className = " ".join(self.classList) if self.classList is not None else ""
-        return f"<{self.etype}>{self.innerHTML}</{self.etype}>"
+        return f'<{self.etype} class="{self.className}">{self.innerHTML}</{self.etype}>'
+
