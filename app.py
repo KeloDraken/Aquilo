@@ -1,15 +1,32 @@
-from aquilo import Aquilo, div, h1, h2, p
+from aquilo import Aquilo, div, h1, h2, p, StyleSheet
 
 app = Aquilo(title="Hello, world", description="Made with python")
 
 
 @app.route("/")
 def home():
+    styles = StyleSheet.create({})
+    text_styles = StyleSheet.create({})
+
     root = div(
-        h1("Hello"),
-        h2("This was written in python"),
-        p("because why not!!!"),
+        styles,
+        h1(text_styles, "Hello"),
+        h2(text_styles, "This was written in python"),
+        p(text_styles, "because why not!!!"),
     )
+    app.register_root(root)
+
+
+# @app.route("/about")
+def about():
+    styles = StyleSheet.create({})
+    text_styles = StyleSheet.create({})
+
+    root = div(
+        styles,
+        h1(text_styles, "this is the about page")
+    )
+
     app.register_root(root)
 
 
