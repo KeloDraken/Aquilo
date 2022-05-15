@@ -1,5 +1,5 @@
 class Element:
-    def __init__(self, etype: str, text: str, classList: list[str] = None, eid: str = None):
+    def __init__(self, etype: str, text: str = None, classList: list[str] = None, eid: str = None):
         self.etype = etype
         self.className: str = ""
         self.classList: list[str] = classList
