@@ -8,8 +8,11 @@ HTML_FILE = HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html"
 
 def serve():
     print("Server listening on port http://localhost:8000...")
-    httpd = HTTPServer(("localhost", 8000), Server)
-    httpd.serve_forever()
+    try:
+        httpd = HTTPServer(("localhost", 8000), Server)
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("Server closed...")
 
 
 class Server(BaseHTTPRequestHandler):
