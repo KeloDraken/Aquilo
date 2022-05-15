@@ -28,3 +28,8 @@ def get_element_tree(root: tuple[Element]) -> str:
     element_tree.append("</div>")
 
     return "".join(element_tree)
+
+
+def destroy_html():
+    with open(HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+") as file:
+        file.write("")

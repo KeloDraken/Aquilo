@@ -1,7 +1,7 @@
 from typing import Any
 
 from aquilo.browser.elements.containers import div
-from aquilo.html.generators import build_html
+from aquilo.html.generators import build_html, destroy_html
 from aquilo.server import serve
 
 
@@ -37,6 +37,7 @@ class Aquilo:
             self.element_tree: str = self.root()
             build_html(self.title, self.element_tree)
             serve()
+            destroy_html()
 
     def register_styles(self, class_name: str, styles: list[dict[str, str]]):
         sl = []
