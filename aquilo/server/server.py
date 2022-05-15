@@ -7,8 +7,8 @@ HTML_FILE = HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html"
 
 
 def serve():
-    print("Server listening on port http://localhost:8080...")
-    httpd = HTTPServer(("localhost", 8080), Server)
+    print("Server listening on port http://localhost:8000...")
+    httpd = HTTPServer(("localhost", 8000), Server)
     httpd.serve_forever()
 
 
@@ -28,4 +28,6 @@ class Server(BaseHTTPRequestHandler):
         try:
             self.wfile.write(bytes(file_to_open, "utf-8"))
         except UnboundLocalError:
+            pass
+        except ConnectionAbortedError:
             pass

@@ -1,31 +1,8 @@
-import os
-from pathlib import Path
 from typing import Any
 
 from aquilo.browser.elements.containers import div
+from aquilo.html.generators import build_html
 from aquilo.server.server import serve
-
-HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent)
-
-
-def build_html(title: str, element_tree: str):
-    html: str = f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-</head>
-<body>
-    {element_tree}
-</body>
-</html>
-        """
-
-    with open(HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+") as file:
-        file.write(html)
 
 
 class Aquilo:
@@ -34,7 +11,7 @@ class Aquilo:
         self.title: str = title
         self.description: str = description
         self.pages: dict[str, Any] = {}
-        self.root: div = None
+        self.root: div = div()
         self.styles: list[str] = []
 
     def route(self, path: str):
@@ -46,6 +23,8 @@ class Aquilo:
         return wrapper
 
     def register_root(self, root: div):
+        if not isinstance(root, div):
+            raise TypeError("root must be a div")
         self.root = root
 
     def run(self):
