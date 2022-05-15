@@ -586,4 +586,5 @@ class StyleProps:
 class StyleSheet:
     @classmethod
     def create(cls, styles=dict[StyleProps, str]):
-        pass
+        if not isinstance(styles, dict):
+            raise ValueError("Style properties must be dict.")

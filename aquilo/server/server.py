@@ -1,36 +1,28 @@
 import os
-from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
+from wsgiref.simple_server import make_server
 
 HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent.parent)
 HTML_FILE = HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html"
 
 
-def serve():
-    print("Server listening on port http://localhost:8000...")
-    try:
-        httpd = HTTPServer(("localhost", 8000), Server)
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("Server closed...")
+def wsgi_app(environment, response):
+    status = "200 OK"
+    headers = [("Content-Type", "text/html; charset=utf-8")]
+    response(status, headers)
+
+    with open(HTML_FILE, "r") as file:
+        html = file.readlines()
+
+    b = bytes("\n".join(html), 'utf-8')
+    return [b]
 
 
-class Server(BaseHTTPRequestHandler):
-
-    def do_GET(self):
-        if self.path == "/":
-            self.path = HTML_FILE
-
+def serve(path: str):
+    with make_server("", 8000, wsgi_app) as server:
+        print("Server listening on port http://localhost:8000...")
         try:
-            file_to_open = open(self.path).read()
-        except FileNotFoundError:
-            pass
-        self.send_response(200)
-        self.end_headers()
-
-        try:
-            self.wfile.write(bytes(file_to_open, "utf-8"))
-        except UnboundLocalError:
-            pass
-        except ConnectionAbortedError:
-            pass
+            server.serve_forever()
+        except KeyboardInterrupt:
+            server.shutdown()
+            return
