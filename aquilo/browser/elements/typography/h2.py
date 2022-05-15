@@ -1,4 +1,4 @@
-from aquilo import Element
+from aquilo.browser.elements import Element
 
 
 class h2(Element):
