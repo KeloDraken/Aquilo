@@ -2,7 +2,7 @@ from typing import Any
 
 from aquilo.browser.elements.containers import div
 from aquilo.html.generators import build_html
-from aquilo.server.server import serve
+from aquilo.server import serve
 
 
 class Aquilo:
@@ -11,7 +11,7 @@ class Aquilo:
         self.title: str = title
         self.description: str = description
         self.pages: dict[str, Any] = {}
-        self.root: div = div()
+        self.root: div = None
         self.styles: list[str] = []
 
     def route(self, path: str):
@@ -32,8 +32,7 @@ class Aquilo:
             self.pages[page]["function"]()
 
         if self.root is None:
-            print("Root element found")
-            print("Document needs to have at least one element")
+            print("Root element not found")
         else:
             self.element_tree: str = self.root()
             build_html(self.title, self.element_tree)
