@@ -7,7 +7,7 @@ HTML_FILE = HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html"
 
 
 def serve():
-    print("Server listening on port localhost:8080...")
+    print("Server listening on port http://localhost:8080...")
     httpd = HTTPServer(("localhost", 8080), Server)
     httpd.serve_forever()
 

@@ -10,13 +10,14 @@ def home():
         "font-size": "100px",
         "color": "pink"
     }
-    elements = [
+
+    element = [
         h1("Hello, world", ["h1_styles"]),
         h2("made with python"),
         p("because why not")
     ]
 
-    app.register_elements(elements)
+    app.register_elements(element)
     app.register_styles("h1_styles", [h1_styles])
 
 
