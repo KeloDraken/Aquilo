@@ -1,8 +1,7 @@
-from typing import Any
+from typing import Any, Callable
 
 from aquilo.browser.elements.containers import div
 from aquilo.html.generators import build_html, destroy_html
-from aquilo.server import serve
 
 
 class Aquilo:
@@ -15,10 +14,12 @@ class Aquilo:
         self.styles: list[str] = []
 
     def route(self, path: str):
-        def wrapper(function):
+        def wrapper(function: Callable):
             page = dict()
             function_name_with_dashes: str = function.__name__.replace("_", "-").lower()
-            page[function_name_with_dashes] = {"path": path, "function": function}
+            regex: str = r"{}$".format(path)
+            page_path = [(regex, function)]
+            page[function_name_with_dashes] = {"path": path, "function": function, "page_path": page_path}
             self.page = page
             return function
 
@@ -38,10 +39,6 @@ class Aquilo:
         else:
             self.element_tree: str = self.root()
             build_html(self.title, self.element_tree)
-
-            path: str = self.page[key]["path"]
-            serve(path)
-
             destroy_html()
 
     def register_styles(self, class_name: str, styles: list[dict[str, str]]):

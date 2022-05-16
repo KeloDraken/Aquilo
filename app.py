@@ -17,7 +17,7 @@ def home():
     app.register_root(root)
 
 
-# @app.route("/about")
+@app.route("/about")
 def about():
     styles = StyleSheet.create({})
     text_styles = StyleSheet.create({})
