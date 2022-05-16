@@ -6,7 +6,7 @@ from aquilo.browser.elements import Element
 HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent.parent)
 
 
-def build_html(title: str, element_tree: str) -> None:
+def build_html(title: str, element_tree: str) -> str:
     html: str = f"""
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
@@ -19,8 +19,10 @@ def build_html(title: str, element_tree: str) -> None:
     with open(HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+") as file:
         file.write(html)
 
+    return html
 
-def get_element_tree(root: tuple[Element]) -> str:
+
+def generate_dom_tree(root: tuple[Element]) -> str:
     element_tree = ["<div>"]
 
     for tag in root:

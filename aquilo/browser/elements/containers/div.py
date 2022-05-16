@@ -1,6 +1,6 @@
 from aquilo.browser.elements import Element
 from aquilo.browser.styles.styles import StyleSheet
-from aquilo.html.generators import get_element_tree
+from aquilo.html.generators import generate_dom_tree
 
 
 class div(Element):
@@ -14,4 +14,4 @@ class div(Element):
         return self.elements
 
     def __call__(self, *args, **kwargs):
-        return get_element_tree(self.elements)
+        return generate_dom_tree(self.elements)
