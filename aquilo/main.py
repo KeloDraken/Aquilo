@@ -7,9 +7,8 @@ from aquilo.http import serve, get_patterns
 
 
 class Aquilo:
-    def __init__(self, description: str):
+    def __init__(self):
         self.element_tree = None
-        self.description: str = description
         self.page: dict[str, Any] = {}
         self.root = None
         self.styles: list[str] = []
