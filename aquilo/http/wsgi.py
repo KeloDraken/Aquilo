@@ -19,12 +19,12 @@ def get_patterns():
     return _URLPATTERNS
 
 
-def serve(application: Any):
-    with make_server("", 8000, application) as server:
+def serve(host: str, ip: str, port: int, application: Any):
+    _host: str = ip if host is None else host
+
+    with make_server(_host, port, application) as server:
         print("Server listening on port http://localhost:8000...")
         try:
-            import webbrowser
-            webbrowser.open("http://localhost:8000/")
             server.serve_forever()
         except KeyboardInterrupt:
             server.shutdown()

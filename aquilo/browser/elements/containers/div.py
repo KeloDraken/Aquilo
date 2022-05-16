@@ -4,7 +4,7 @@ from aquilo.html.generators import generate_dom_tree
 
 
 class div(Element):
-    def __init__(self, styles: StyleSheet, *args: Element):
+    def __init__(self, *args: Element, styles: StyleSheet = StyleSheet.create({})):
         self.styles = styles
         etype = self.__class__.__name__
         super().__init__(etype)

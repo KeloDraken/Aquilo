@@ -3,7 +3,7 @@ from pathlib import Path
 
 from aquilo.browser.elements import Element
 
-HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent.parent)
+HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent)
 
 
 def build_html(element_tree: str, title: str = None, description: str = None) -> str:
