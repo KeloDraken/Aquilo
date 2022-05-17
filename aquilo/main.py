@@ -2,7 +2,6 @@ import re
 from typing import Any, Callable
 
 from aquilo.browser.elements.containers import div
-from aquilo.html.generators import destroy_html
 from aquilo.http import serve, get_patterns, urlpatterns
 
 
@@ -45,7 +44,7 @@ class Aquilo:
             match = re.search(regex, path)
 
             if match is not None:
-                environ["app.urls"] = match.groups()
+                environ["app.pages"] = match.groups()
 
                 if path == "":
                     home_page = list(self._page.keys())[0]
@@ -63,7 +62,6 @@ class Aquilo:
     def run(self):
         urlpatterns(self._patterns)
         serve(self.host, self.ip, self.port, self._application)
-        destroy_html()
 
     def register_styles(self, class_name: str, styles: list[dict[str, str]]):
         sl = []
