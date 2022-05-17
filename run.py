@@ -72,5 +72,5 @@ def contact():
     return build(root, title="Contact Us")
 
 
-if __name__ == "__main__":
-    app.run()
+# if __name__ == "__main__":
+app.run()
