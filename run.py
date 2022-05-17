@@ -3,7 +3,7 @@ import sqlite3
 from aquilo import Aquilo, h1, h2, a, build
 from aquilo.ui import Column, Container, Row
 
-app = Aquilo(ip="0.0.0.0")
+app = Aquilo(debug=True)
 
 
 def get_posts():
@@ -72,5 +72,5 @@ def contact():
     return build(root, title="Contact Us")
 
 
-# if __name__ == "__main__":
-# app.run()
+if __name__ == "__main__":
+    app.run()
