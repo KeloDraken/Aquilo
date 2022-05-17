@@ -1,43 +1,38 @@
-from aquilo import Aquilo, div, h1, h2, p, StyleSheet, a
-from aquilo.html.generators import build_html
-from aquilo.http import urlpatterns
+from aquilo import Aquilo, h1, h2, p, a, build
+from aquilo.ui import Column, Container, Row
 
 app = Aquilo()
 
 
-@app.route()
+@app.page()
 def home():
-    styles = StyleSheet.create({})
-    text_styles = StyleSheet.create({})
-
-    root = div(
-        styles,
-        h1(styles=text_styles, text="Hello"),
-        h2(styles=text_styles, text="This was written in python"),
-        p(styles=text_styles, text="because why not!!!"),
-        a(styles=text_styles, text="go to about page", href="/about/")
+    root = Row(
+        Column(
+            h1(text="Hello"),
+            h2(text="This was written in python"),
+            p(text="because why not!!!"),
+        ),
+        Column(
+            a(text="go to about page", href="/about/"),
+            a(text="go to contact page", href="/contact/"),
+        ),
     )()
 
-    return build_html(root, title="This is the page title")
+    return build(root, title="This is the page title")
 
 
-@app.route()
+@app.page()
 def about():
-    styles = StyleSheet.create({})
-    text_styles = StyleSheet.create({})
+    root = Container(h1(text="this is the about page"))()
 
-    root = div(
-        styles,
-        h1(styles=text_styles, text="this is the about page")
-    )()
-
-    return build_html(root, title="This is the about page")
+    return build(root, title="This is the about page")
 
 
-urlpatterns([
-    (r'^$', home),
-    (r'about/?$', about),
-])
+@app.page()
+def contact():
+    root = Container(a("home", "/home/"))()
+    return build(root, title="Contact Us")
+
 
 if __name__ == "__main__":
     app.run()

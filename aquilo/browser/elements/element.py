@@ -1,5 +1,7 @@
 class Element:
-    def __init__(self, etype: str, text: str = None, classList: list[str] = None, eid: str = None):
+    def __init__(
+        self, etype: str, text: str = None, classList: list[str] = None, eid: str = None
+    ):
         self.etype = etype
         self.className: str = ""
         self.classList: list[str] = classList
@@ -12,7 +14,7 @@ class Element:
 
     def __call__(self, *args, **kwargs):
         if self.classList is None:
-            return f'<{self.etype}>{self.innerHTML}</{self.etype}>'
+            return f"<{self.etype}>{self.innerHTML}</{self.etype}>"
         else:
             self.className = " ".join(self.classList)
             return f'<{self.etype} class="{self.className}">{self.innerHTML}</{self.etype}>'
