@@ -70,5 +70,5 @@ class Aquilo:
                 sl.append(f"{style_class}: {style[style_class]};")
             self.styles.append(f".{class_name}" + " {\n" + "\n".join(sl) + "\n}")
 
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
         self.run()
