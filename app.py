@@ -8,7 +8,7 @@ app = Aquilo()
 
 def get_posts():
     # Connecting to sqlite
-    conn = sqlite3.connect("../db.sqlite3")
+    conn = sqlite3.connect("db.sqlite3")
 
     # Creating a cursor object using the cursor() method
     cursor = conn.cursor()
