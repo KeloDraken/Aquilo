@@ -15,7 +15,7 @@ def home():
         Column(
             a(text="go to about page", href="/about/"),
             a(text="go to contact page", href="/contact/"),
-        )
+        ),
     )()
 
     return build(root, title="This is the page title")
@@ -23,9 +23,7 @@ def home():
 
 @app.page()
 def about():
-    root = Container(
-        h1(text="this is the about page")
-    )()
+    root = Container(h1(text="this is the about page"))()
 
     return build(root, title="This is the about page")
 

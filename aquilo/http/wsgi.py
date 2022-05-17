@@ -6,8 +6,8 @@ _URLPATTERNS: list[tuple[str, Any]] = list()
 
 def not_found(environ, start_response):
     """Called if no URL matches."""
-    start_response('404 NOT FOUND', [('Content-Type', 'text/plain')])
-    return ['Not Found'.encode()]
+    start_response("404 NOT FOUND", [("Content-Type", "text/plain")])
+    return ["Not Found".encode()]
 
 
 def urlpatterns(patterns: list[tuple[str, Any]]):

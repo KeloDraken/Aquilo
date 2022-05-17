@@ -33,10 +33,10 @@ class Aquilo:
         self.root: div = root
 
     def _application(self, environ, start_response):
-        start_response('200 OK', [('Content-Type', 'text/html')])
+        start_response("200 OK", [("Content-Type", "text/html")])
 
         html: str = "Not found"
-        path: str = environ.get('PATH_INFO', '').lstrip('/')
+        path: str = environ.get("PATH_INFO", "").lstrip("/")
 
         if not path.endswith("/"):
             path = path + "/"
@@ -45,7 +45,7 @@ class Aquilo:
             match = re.search(regex, path)
 
             if match is not None:
-                environ['app.urls'] = match.groups()
+                environ["app.urls"] = match.groups()
 
                 if path == "":
                     home_page = list(self._page.keys())[0]

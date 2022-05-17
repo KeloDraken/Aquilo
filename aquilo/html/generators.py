@@ -16,7 +16,9 @@ def build(element_tree: str, title: str = None, description: str = None) -> str:
 </head><body>{element_tree}</body></html>
         """
 
-    with open(HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+") as file:
+    with open(
+        HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+"
+    ) as file:
         file.write(html)
 
     return html
@@ -33,5 +35,7 @@ def generate_dom_tree(root: tuple[Element]) -> str:
 
 
 def destroy_html():
-    with open(HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+") as file:
+    with open(
+        HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+"
+    ) as file:
         file.write("")
