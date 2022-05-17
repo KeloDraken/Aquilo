@@ -1,12 +1,20 @@
-import os
-from pathlib import Path
+from typing import Union, Iterable
 
 from aquilo.browser.elements import Element
 
-HTML_BUILD_OUTPUT_DIR = str(Path(__file__).resolve().parent)
-
 
 def build(element_tree: str, title: str = None, description: str = None) -> str:
+    """
+    It takes an element tree and returns an HTML document
+
+    :param element_tree: str
+    :type element_tree: str
+    :param title: The title of the page
+    :type title: str
+    :param description: str = None
+    :type description: str
+    :return: A string of HTML code.
+    """
     html: str = f"""
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
@@ -15,27 +23,32 @@ def build(element_tree: str, title: str = None, description: str = None) -> str:
     <title>{title}</title>
 </head><body>{element_tree}</body></html>
         """
-
-    with open(
-        HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+"
-    ) as file:
-        file.write(html)
-
     return html
 
 
-def generate_dom_tree(root: tuple[Element]) -> str:
+def generate_dom_tree(root: Union[Iterable, Element]) -> str:
+    """
+    It takes a root element, and returns a string representation of the DOM tree
+
+    :param root: The root element of the DOM tree
+    :type root: Union[Iterable, Element]
+    :return: A string of HTML code.
+    """
     element_tree = ["<div>"]
 
     for tag in root:
-        element_tree.append(tag())
+        try:
+            iter(tag)
+            is_iterable = True
+        except TypeError:
+            is_iterable = False
+
+        if is_iterable:
+            for i in tag:
+                element_tree.append(i())
+        else:
+            element_tree.append(tag())
+
     element_tree.append("</div>")
 
     return "".join(element_tree)
-
-
-def destroy_html():
-    with open(
-        HTML_BUILD_OUTPUT_DIR + os.sep + "build" + os.sep + "index.html", "w+"
-    ) as file:
-        file.write("")
