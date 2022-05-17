@@ -69,3 +69,6 @@ class Aquilo:
             for i, style_class in enumerate(style):
                 sl.append(f"{style_class}: {style[style_class]};")
             self.styles.append(f".{class_name}" + " {\n" + "\n".join(sl) + "\n}")
+
+    def __call__(self):
+        self.run()
