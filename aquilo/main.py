@@ -6,7 +6,7 @@ from aquilo.http import serve, get_patterns, urlpatterns
 
 
 class Aquilo:
-    def __init__(self, host: str = None, ip: str = "127.0.0.1", port: int = 8000):
+    def __init__(self, host: str = None, ip: str = "127.0.0.1", port: int = 8000, debug: bool = True):
         self.host = host
         self.ip = ip
         self.port = port
@@ -15,6 +15,7 @@ class Aquilo:
         self.root = None
         self.styles: list[str] = []
         self._patterns = []
+        self.debug: bool = debug
 
     def page(self):
         def wrapper(function: Callable):
@@ -61,7 +62,7 @@ class Aquilo:
 
     def run(self):
         urlpatterns(self._patterns)
-        serve(self.host, self.ip, self.port, self._application)
+        serve(self.host, self.ip, self.port, self._application, self.debug)
 
     def register_styles(self, class_name: str, styles: list[dict[str, str]]):
         sl = []

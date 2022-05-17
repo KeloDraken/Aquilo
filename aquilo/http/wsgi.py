@@ -19,13 +19,15 @@ def get_patterns():
     return _URLPATTERNS
 
 
-def serve(host: str, ip: str, port: int, application: Any):
-    _host: str = ip if host is None else host
+def serve(host: str, ip: str, port: int, application: Any, debug: bool = True):
+    if debug:
+        _host: str = ip if host is None else host
 
-    with make_server(_host, port, application) as server:
-        print("Server listening on port http://localhost:8000...")
-        try:
-            server.serve_forever()
-        except KeyboardInterrupt:
-            server.shutdown()
-            return
+        with make_server(_host, port, application) as server:
+            print("Server listening on port http://localhost:8000...")
+            try:
+                server.serve_forever()
+            except KeyboardInterrupt:
+                server.shutdown()
+                return
+    pass
