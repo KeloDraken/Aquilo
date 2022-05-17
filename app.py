@@ -1,13 +1,13 @@
 from aquilo import Aquilo, h1, h2, p, a
-from aquilo.foto import Stack, Column, Container
-from aquilo.html.generators import build_html
+from aquilo.ui import Column, Container, Row
+from aquilo.html.generators import build
 
 app = Aquilo()
 
 
 @app.page()
 def home():
-    root = Stack(
+    root = Row(
         Column(
             h1(text="Hello"),
             h2(text="This was written in python"),
@@ -19,7 +19,7 @@ def home():
         )
     )()
 
-    return build_html(root, title="This is the page title")
+    return build(root, title="This is the page title")
 
 
 @app.page()
@@ -28,13 +28,13 @@ def about():
         h1(text="this is the about page")
     )()
 
-    return build_html(root, title="This is the about page")
+    return build(root, title="This is the about page")
 
 
 @app.page()
 def contact():
     root = Container(a("home", "/home/"))()
-    return build_html(root, title="Contact Us")
+    return build(root, title="Contact Us")
 
 
 if __name__ == "__main__":

@@ -5,6 +5,10 @@ class Stack(div):
     pass
 
 
+class Row(div):
+    pass
+
+
 class Column(div):
     pass
 
