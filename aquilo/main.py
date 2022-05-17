@@ -71,4 +71,5 @@ class Aquilo:
             self.styles.append(f".{class_name}" + " {\n" + "\n".join(sl) + "\n}")
 
     def __call__(self, *args, **kwargs):
-        self.run()
+        print(args, kwargs)
+        return self._application(*args)
