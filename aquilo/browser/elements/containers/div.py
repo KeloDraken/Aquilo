@@ -1,5 +1,5 @@
 from aquilo.browser.elements import Element
-from aquilo.browser.styles.styles import StyleSheet
+from aquilo.ui.styles import StyleSheet
 from aquilo.html.generators import generate_dom_tree
 
 

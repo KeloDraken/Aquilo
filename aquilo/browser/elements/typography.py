@@ -1,5 +1,5 @@
 from aquilo.browser.elements import Element
-from aquilo.browser.styles import StyleSheet
+from aquilo.ui import StyleSheet
 
 
 class Text(Element):
