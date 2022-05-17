@@ -3,7 +3,7 @@ import sqlite3
 from aquilo import Aquilo, h1, h2, a, build
 from aquilo.ui import Column, Container, Row
 
-app = Aquilo()
+app = Aquilo(ip="0.0.0.0")
 
 
 def get_posts():
