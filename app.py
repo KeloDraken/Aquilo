@@ -1,6 +1,5 @@
-from aquilo import Aquilo, h1, h2, p, a
+from aquilo import Aquilo, h1, h2, p, a, build
 from aquilo.ui import Column, Container, Row
-from aquilo.html.generators import build
 
 app = Aquilo()
 
