@@ -1,6 +1,7 @@
 from typing import Any, Callable
 
 from aquilo.browser.elements.containers import div
+from aquilo.html import get_404
 from aquilo.http import serve, get_patterns, urlpatterns
 
 
@@ -40,17 +41,6 @@ class Aquilo:
     def _application(self, environ, start_response):
         start_response("200 OK", [("Content-Type", "text/html")])
 
-        html: str = """
-<!doctype html>
-<html lang="en">
-<head>
-  <title>Not Found</title>
-</head>
-<body>
-  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
-</body>
-</html>
-"""
         path: str = environ.get("PATH_INFO", "").lstrip("/")
 
         if not path.endswith("/"):
@@ -59,17 +49,17 @@ class Aquilo:
         pages = list(self._pages.keys())
 
         if path == "/" or path == "":
-            html = self._pages[pages[0]]["function"]()
-            return [html.encode()]
+            html = self._pages[pages[0]]["function"]().encode()
+            return [html]
 
         for pattern in get_patterns():
             page = path.replace("/", " ").strip()
 
             if page in pages:
-                html = self._pages[page]["function"]()
-                return [html.encode()]
+                html = self._pages[page]["function"]().encode()
+                return [html]
 
-        return [html.encode()]
+        return [get_404()]
 
     def run(self):
         urlpatterns(self._patterns)
