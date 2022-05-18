@@ -26,6 +26,20 @@ def build(element_tree: str, title: str = None, description: str = None) -> str:
     return html
 
 
+def get_404():
+    return """
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+""".encode()
+
+
 def generate_dom_tree(root: Union[Iterable, Element]) -> str:
     """
     It takes a root element, and returns a string representation of the DOM tree
