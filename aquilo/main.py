@@ -1,4 +1,3 @@
-import re
 from typing import Any, Callable
 
 from aquilo.browser.elements.containers import div
@@ -6,12 +5,18 @@ from aquilo.http import serve, get_patterns, urlpatterns
 
 
 class Aquilo:
-    def __init__(self, host: str = None, ip: str = "127.0.0.1", port: int = 8000, debug: bool = True):
+    def __init__(
+        self,
+        host: str = None,
+        ip: str = "127.0.0.1",
+        port: int = 8000,
+        debug: bool = True,
+    ):
         self.host = host
         self.ip = ip
         self.port = port
         self.element_tree = None
-        self._page: dict[str, Any] = {}
+        self._pages: dict[str, Any] = {}
         self.root = None
         self.styles: list[str] = []
         self._patterns = []
@@ -20,8 +25,8 @@ class Aquilo:
     def page(self):
         def wrapper(function: Callable):
             function_name_with_dashes: str = function.__name__.replace("_", "-").lower()
-            self._page[function_name_with_dashes] = {"function": function}
-            pattern = (r"^{}$".format(function_name_with_dashes + "/"), function)
+            self._pages[function_name_with_dashes] = {"function": function}
+            pattern = ("{}".format(function_name_with_dashes + "/"), function)
             self._patterns.append(pattern)
             return function
 
@@ -35,28 +40,34 @@ class Aquilo:
     def _application(self, environ, start_response):
         start_response("200 OK", [("Content-Type", "text/html")])
 
-        html: str = "Not found"
+        html: str = """
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Not Found</title>
+</head>
+<body>
+  <h1>Not Found</h1><p>The requested resource was not found on this server.</p>
+</body>
+</html>
+"""
         path: str = environ.get("PATH_INFO", "").lstrip("/")
 
         if not path.endswith("/"):
             path = path + "/"
 
-        for regex, callback in get_patterns():
-            match = re.search(regex, path)
+        pages = list(self._pages.keys())
 
-            if match is not None:
-                environ["app.pages"] = match.groups()
+        if path == "/" or path == "":
+            html = self._pages[pages[0]]["function"]()
+            return [html.encode()]
 
-                if path == "":
-                    home_page = list(self._page.keys())[0]
-                    html = self._page[home_page]["function"]()
-                else:
-                    p = path.replace("/", " ").strip()
+        for pattern in get_patterns():
+            page = path.replace("/", " ").strip()
 
-                    for i in list(self._page.keys()):
-                        if p == i:
-                            html = self._page[i]["function"]()
-                            break
+            if page in pages:
+                html = self._pages[page]["function"]()
+                return [html.encode()]
 
         return [html.encode()]
 
