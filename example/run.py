@@ -1,15 +1,14 @@
-from aquilo import Aquilo, h1, a, build
-from aquilo.ui import Column, Container, Row
+from aquilo import Aquilo, h1, a, build, div
 
 app = Aquilo(debug=True)
 
 
 @app.page()
 def home():
-    root = Row(
+    root = div(
         [
-            Column(h1("This is the home page")),
-            Column(
+            div(h1("This is the home page")),
+            div(
                 [
                     a(text="go to about page", href="/about/"),
                     a(text="go to contact page", href="/contact/"),
@@ -17,19 +16,18 @@ def home():
             ),
         ]
     )()
-
     return build(root, title="This is the page title")
 
 
 @app.page()
 def about():
-    root = Container(h1(text="this is the about page"))()
+    root = div(h1(text="this is the about page"))()
     return build(root, title="This is the about page")
 
 
 @app.page()
 def contact():
-    root = Container(a("home", "/home/"))()
+    root = div(a("home", "/home/"))()
     return build(root, title="Contact Us")
 
 
