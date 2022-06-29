@@ -18,6 +18,7 @@ and host them wherever you want.
 - Make Aquilo opinionated about the structure of a project
 - Create a CLI tool to help with repetitive tasks
 - Add indepth documentation in docstrings for all the functions (I've just started learning Godot, and I really that you can find all the info you need about a function right in the docstring)
+- Build my portfolio website with Aquilo
 
 # Installation
 - Clone the repository
