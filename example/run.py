@@ -15,19 +15,19 @@ def home():
                 ],
             ),
         ]
-    )()
+    )
     return build(root, title="This is the page title")
 
 
 @app.page()
 def about():
-    root = div(h1(text="this is the about page"))()
+    root = div(h1(text="this is the about page"))
     return build(root, title="This is the about page")
 
 
 @app.page()
 def contact():
-    root = div(a("home", "/home/"))()
+    root = div(a("home", "/home/"))
     return build(root, title="Contact Us")
 
 

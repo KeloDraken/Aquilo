@@ -1,9 +1,9 @@
-from typing import Union, Iterable
+from typing import Union, Iterable, Callable
 
 from aquilo.browser.elements import Element
 
 
-def build(element_tree: str, title: str = None, description: str = None) -> str:
+def build(element_tree: Callable, title: str = None, description: str = None) -> str:
     """
     It takes an element tree and returns an HTML document
 
@@ -21,7 +21,7 @@ def build(element_tree: str, title: str = None, description: str = None) -> str:
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
-</head><body>{element_tree}</body></html>
+</head><body>{element_tree()}</body></html>
         """
     return html
 
