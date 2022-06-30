@@ -19,7 +19,6 @@ class Aquilo:
         self.element_tree = None
         self._pages: dict[str, Any] = {}
         self.root = None
-        self.styles: list[str] = []
         self._patterns = []
         self.debug: bool = debug
 
@@ -64,13 +63,6 @@ class Aquilo:
     def run(self):
         urlpatterns(self._patterns)
         serve(self.host, self.ip, self.port, self._application, self.debug)
-
-    def register_styles(self, class_name: str, styles: list[dict[str, str]]):
-        sl = []
-        for style in styles:
-            for i, style_class in enumerate(style):
-                sl.append(f"{style_class}: {style[style_class]};")
-            self.styles.append(f".{class_name}" + " {\n" + "\n".join(sl) + "\n}")
 
     def __call__(self, *args, **kwargs):
         print(args, kwargs)
