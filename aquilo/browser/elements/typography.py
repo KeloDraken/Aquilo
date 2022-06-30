@@ -103,4 +103,4 @@ class a(Text):
         self.href = href
 
     def __call__(self, *args, **kwargs):
-        return f"<{self.etype} href={self.href}>{self.innerHTML}</{self.etype}>"
+        return f"<{self.etype} href="+f"{self.href}"+f">{self.innerHTML}</{self.etype}>"

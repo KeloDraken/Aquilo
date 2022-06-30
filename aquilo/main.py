@@ -1,7 +1,8 @@
+import os
 from typing import Any, Callable
 
 from aquilo.browser.elements.containers import div
-from aquilo.html import get_404
+from aquilo.html import get_404, build
 from aquilo.http import serve, get_patterns, urlpatterns
 
 
@@ -67,3 +68,15 @@ class Aquilo:
     def __call__(self, *args, **kwargs):
         print(args, kwargs)
         return self._application(*args)
+
+    def build_html(self, dir_path):
+        if os.path.exists(os.path.join(dir_path, "build")):
+            os.rmdir(os.path.join(dir_path, "build"))
+
+        os.mkdir(os.path.join(dir_path, "build"))
+
+        pages = list(self._pages.keys())
+
+        for page in pages:
+            with open(os.path.join(dir_path, "build", f"{page}.html"), "w") as file:
+                file.write(build(self._pages[page]["function"], title=page))

@@ -32,4 +32,11 @@ def contact():
 
 
 if __name__ == "__main__":
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "build":
+        import os
+        file_path = os.path.dirname(os.path.abspath(__file__))
+        app.build_html(file_path)
+
     app.run()
