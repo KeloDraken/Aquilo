@@ -8,11 +8,11 @@ from aquilo.http import serve, get_patterns, urlpatterns
 
 class Aquilo:
     def __init__(
-            self,
-            host: str = None,
-            ip: str = "127.0.0.1",
-            port: int = 8000,
-            debug: bool = True,
+        self,
+        host: str = None,
+        ip: str = "127.0.0.1",
+        port: int = 8000,
+        debug: bool = True,
     ):
         self.host = host
         self.ip = ip
