@@ -252,6 +252,11 @@ WSGI_APPLICATION = "{project_name}.config.wsgi.application"
     with open(f"{os.getcwd()}/{project_name}/libs/__init__.py", "w") as init_file:
         init_file.write("")
 
+    try:
+        os.system(f"git init")
+    except:
+        pass
+
 
 def main():
     import sys
