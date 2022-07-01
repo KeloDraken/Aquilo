@@ -71,7 +71,8 @@ class Aquilo:
 
     def build_html(self, dir_path):
         if os.path.exists(os.path.join(dir_path, "build")):
-            os.rmdir(os.path.join(dir_path, "build"))
+            import shutil
+            shutil.rmtree(os.path.join(dir_path, "build"), ignore_errors=True)
 
         os.mkdir(os.path.join(dir_path, "build"))
 
