@@ -24,13 +24,13 @@ class Aquilo:
         self.debug: bool = debug
 
     def page(self, function: Callable):
-        function_name_with_dashes: str = function.__name__.replace("_", "-").lower()
-        name = function_name_with_dashes.split("page-")
+        function_name_with_dashes: str = function.__name__.replace("_", "/").lower()
+        name = function_name_with_dashes.split("page/")
 
         if len(name) == 1:
             raise ValueError("Invalid page name.")
 
-        self._pages[name[1]] = {"function": function}
+        self._pages[name[1] + "/"] = {"function": function}
         pattern = ("{}".format(name[1] + "/"), function)
         self._patterns.append(pattern)
         return function
@@ -55,10 +55,8 @@ class Aquilo:
             return [html]
 
         for pattern in get_patterns():
-            page = path.replace("/", " ").strip()
-
-            if page in pages:
-                html = self._pages[page]["function"]().encode()
+            if path in pages:
+                html = self._pages[path]["function"]().encode()
                 return [html]
 
         return [get_404()]
