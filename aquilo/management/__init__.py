@@ -81,6 +81,10 @@ def startapp_command(app_name: str):
         pages.write("from aquilo import build\n\n")
 
 
+def format_code():
+    os.system("black .")
+
+
 def execute_from_command_line(args: list[str]) -> None:
     if len(args) == 1:
         raise ValueError("No command specified.")
@@ -93,6 +97,8 @@ def execute_from_command_line(args: list[str]) -> None:
                 startapp_command(args[2])
             except IndexError:
                 raise ValueError("No app name specified.")
+        case "format":
+            format_code()
         case _:
             raise ValueError("Invalid command.")
 

@@ -11,6 +11,9 @@ requires-python = ">=3.10.1"
 readme = "README.md"
 urls = { github = "https://github.com/KeloDraken/aquilo" }
 license = { text = "GNU General Public License v3.0" }
+dependencies = [
+    "black",
+]
 
 [project.scripts]
 aquilo = "aquilo:main"

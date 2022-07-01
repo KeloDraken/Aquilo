@@ -261,8 +261,6 @@ WSGI_APPLICATION = "{project_name}.config.wsgi.application"
 def main():
     import sys
 
-    sys.path.append("aquilo-admin")
-
     if len(sys.argv) == 1:
         raise ValueError("No command specified.")
 
