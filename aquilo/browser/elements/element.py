@@ -1,7 +1,5 @@
 class Element:
-    def __init__(
-            self, etype: str, text: str = None, eid: str = None
-    ):
+    def __init__(self, etype: str, text: str = None, eid: str = None):
         self.etype = etype
         self.hidden: bool = False
         self.eid: str = eid
