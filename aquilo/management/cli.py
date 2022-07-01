@@ -10,8 +10,8 @@ settings = import_module(os.environ.get("AQUILO_SETTINGS_MODULE"))
 app = Aquilo(debug=settings.DEBUG)
 
 
-def validate_home_page(application: str, module: ModuleType):
-    if application == "home" or application == "homepage" or application == "index":
+def validate_home_page(application: str, apps_list: list[str], module: ModuleType):
+    if application == apps_list[0]:
         homepage_function = list()
 
         for member in getmembers(module, isfunction):
@@ -39,8 +39,14 @@ def runserver_command():
         )
 
     for application in apps_list:
-        app_module = import_module(f"{os.environ.get('AQUILO_APPS_MODULE')}.{application}.pages")
-        validate_home_page(application, app_module)
+        try:
+            app_module = import_module(f"{os.environ.get('AQUILO_APPS_MODULE')}.{application}.pages")
+        except ImportError as exc:
+            raise ValueError(
+                f"{application} module was not found in apps. "
+                "Please check the spelling."
+            ) from exc
+        validate_home_page(application, apps_list, app_module)
         register_pages(application, app_module)
 
     app.run()
@@ -66,4 +72,4 @@ def execute_from_command_line(args: list[str]) -> None:
         case "runserver":
             runserver_command()
         case _:
-            raise ValueError("Unknown command.")
+            raise ValueError("Invalid command.")
