@@ -1,5 +1,5 @@
 # Aquilo Framework
- A Flutter-inspired, web development framework for python.
+ A, Flutter & Django inspired, web development framework for python.
  
 Build beautiful and responsive websites without ever needing to touch HTML, CSS, or JavaScript.
 With Aquilo you can build a website entirely in python, and it will be blazing fast. 
