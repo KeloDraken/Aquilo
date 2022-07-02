@@ -289,7 +289,7 @@ def main():
         raise ValueError("No command specified.")
 
     match sys.argv[1]:
-        case "init":
+        case "startproject":
             try:
                 startproject(sys.argv[2].lower())
             except IndexError:

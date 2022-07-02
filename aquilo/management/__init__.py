@@ -105,9 +105,9 @@ def execute_from_command_line(args: list[str]) -> None:
         raise ValueError("No command specified.")
 
     match args[1]:
-        case "serve":
+        case "runserver":
             runserver_command()
-        case "init":
+        case "startapp":
             try:
                 startapp_command(args[2])
             except IndexError:
