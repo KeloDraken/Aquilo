@@ -8,11 +8,11 @@ from aquilo.http import serve, get_patterns, urlpatterns
 
 class Aquilo:
     def __init__(
-            self,
-            host: str = None,
-            ip: str = "127.0.0.1",
-            port: int = 8000,
-            debug: bool = True,
+        self,
+        host: str = None,
+        ip: str = "127.0.0.1",
+        port: int = 8000,
+        debug: bool = True,
     ):
         self.host = host
         self.ip = ip
@@ -20,7 +20,7 @@ class Aquilo:
         self.element_tree = None
         self._pages: dict[str, Any] = {}
         self.root = None
-        self._patterns: tuple[str, Callable] = tuple()
+        self._patterns: list[tuple[str, Callable]] = list()
         self.debug: bool = debug
 
     def page(self, function: Callable) -> Callable:
@@ -30,9 +30,22 @@ class Aquilo:
         if len(name) == 1:
             raise ValueError("Invalid page name.")
 
-        self._pages[name[1] + "/"] = {"function": function}
-        pattern: tuple[str, Callable] = ("{}".format(name[1] + "/"), function)
-        self._patterns = (*self._patterns, pattern)
+        path_name: str = "{}".format(name[1] + "/")
+
+        try:
+            path_list: list[str] = path_name.split("/")[:-1]
+
+            if path_list[0] == path_list[1]:
+                path_name = path_list[0] + "/"
+
+        except IndexError:
+            pass
+
+        self._pages[path_name] = {"function": function}
+
+        pattern: tuple[str, Callable] = (path_name, function)
+        self._patterns.append(pattern)
+
         return function
 
     def register_root(self, root: div) -> None:

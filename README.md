@@ -88,7 +88,7 @@ APPS = [
 
 The order of the APPS list is important. The first app in the list will be the home app. Only 1 page is allowed to be the home page.
 
-A new app will contain a `pages.py` file, the functions defined in file 
+A new app will contain a `pages.py` file, the functions defined in file
 will be used to generate the HTML for the pages. The default home page inside the home app will look like this:
 
 ```python
