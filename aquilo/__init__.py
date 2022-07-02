@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from aquilo.browser.elements.typography import *
 from aquilo.browser.elements.containers import *
+from aquilo.browser.elements.typography import *
 from aquilo.html import *
 from aquilo.main import *
 
@@ -210,7 +210,7 @@ cython_debug/
 
     with open(f"{os.getcwd()}/README.md", "w") as readme_file:
         readme_file.write(
-            f"""# {project_name}
+            f"""# {project_name.capitalize()}
 
 This is a new Aquilo project.        
         """
@@ -227,6 +227,19 @@ This is a new Aquilo project.
     with open(f"{os.getcwd()}/{project_name}/apps/__init__.py", "w") as init_file:
         init_file.write("")
 
+    os.makedirs(f"{os.getcwd()}/{project_name}/apps/home")
+    with open(f"{os.getcwd()}/{project_name}/apps/home/__init__.py", "w") as init_file:
+        init_file.write("")
+
+    with open(f"{os.getcwd()}/{project_name}/apps/home/pages.py", "w") as pages:
+        pages.write("""from aquilo import build, div, h1
+
+
+def page_home():
+    root = div(h1(\"Hello World!\"))
+    return build(root, title=\"Hello World!\")
+""")
+
     os.makedirs(f"{os.getcwd()}/{project_name}/config")
 
     with open(f"{os.getcwd()}/{project_name}/config/__init__.py", "w") as init_file:
@@ -240,7 +253,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = True
 
-APPS = []
+APPS = [
+    "home",
+]
 
 ROOT_URLCONF = "{project_name}.config.urls"
 
@@ -266,7 +281,7 @@ def main():
         raise ValueError("No command specified.")
 
     match sys.argv[1]:
-        case "startproject":
+        case "init":
             try:
                 startproject(sys.argv[2].lower())
             except IndexError:

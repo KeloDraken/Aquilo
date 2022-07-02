@@ -8,11 +8,11 @@ from aquilo.http import serve, get_patterns, urlpatterns
 
 class Aquilo:
     def __init__(
-        self,
-        host: str = None,
-        ip: str = "127.0.0.1",
-        port: int = 8000,
-        debug: bool = True,
+            self,
+            host: str = None,
+            ip: str = "127.0.0.1",
+            port: int = 8000,
+            debug: bool = True,
     ):
         self.host = host
         self.ip = ip
@@ -20,27 +20,27 @@ class Aquilo:
         self.element_tree = None
         self._pages: dict[str, Any] = {}
         self.root = None
-        self._patterns = []
+        self._patterns: tuple[str, Callable] = tuple()
         self.debug: bool = debug
 
-    def page(self, function: Callable):
+    def page(self, function: Callable) -> Callable:
         function_name_with_dashes: str = function.__name__.replace("_", "/").lower()
-        name = function_name_with_dashes.split("page/")
+        name: list[str] = function_name_with_dashes.split("page/")
 
         if len(name) == 1:
             raise ValueError("Invalid page name.")
 
         self._pages[name[1] + "/"] = {"function": function}
-        pattern = ("{}".format(name[1] + "/"), function)
-        self._patterns.append(pattern)
+        pattern: tuple[str, Callable] = ("{}".format(name[1] + "/"), function)
+        self._patterns = (*self._patterns, pattern)
         return function
 
-    def register_root(self, root: div):
+    def register_root(self, root: div) -> None:
         if not isinstance(root, div):
             raise TypeError("root must be a div")
         self.root: div = root
 
-    def _application(self, environ, start_response):
+    def _application(self, environ, start_response) -> list[bytes]:
         start_response("200 OK", [("Content-Type", "text/html")])
 
         path: str = environ.get("PATH_INFO", "").lstrip("/")
@@ -48,7 +48,7 @@ class Aquilo:
         if not path.endswith("/"):
             path = path + "/"
 
-        pages = list(self._pages.keys())
+        pages: list[str] = list(self._pages.keys())
 
         if path == "/" or path == "":
             html = self._pages[pages[0]]["function"]().encode()
@@ -61,7 +61,7 @@ class Aquilo:
 
         return [get_404()]
 
-    def run(self):
+    def run(self) -> None:
         urlpatterns(self._patterns)
         serve(self.host, self.ip, self.port, self._application, self.debug)
 

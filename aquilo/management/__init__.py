@@ -78,11 +78,15 @@ def startapp_command(app_name: str):
         init.write("")
 
     with open(f"{new_app_directory}/pages.py", "w") as pages:
-        pages.write("from aquilo import build\n\n")
+        pages.write(f"""from aquilo import build
+        
+def page_{app_name}():
+    pass
+""")
 
 
 def format_code():
-    os.system("black .")
+    os.system(f"black {settings.BASE_DIR}")
 
 
 def execute_from_command_line(args: list[str]) -> None:

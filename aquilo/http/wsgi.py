@@ -27,7 +27,7 @@ def serve(host: str, ip: str, port: int, application: Any, debug: bool = True):
             print("Server listening on port http://localhost:8000...")
             try:
                 server.serve_forever()
-            except KeyboardInterrupt:
+            except:
                 server.shutdown()
                 return
     pass
