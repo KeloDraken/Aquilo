@@ -4,9 +4,19 @@ from aquilo.browser.elements.containers import *
 from aquilo.browser.elements.typography import *
 from aquilo.html import *
 from aquilo.main import *
+from aquilo.utils import has_special_char
 
 
 def startproject(project_name: str):
+    if has_special_char(project_name):
+        raise ValueError("Project name cannot contain special characters.")
+
+    if project_name == "aquilo":
+        raise ValueError("Aquilo is a reserved name.")
+
+    if " " in project_name:
+        raise ValueError("Project name cannot contain spaces.")
+
     new_app_directory = Path(os.getcwd() + os.sep + project_name)
 
     if os.path.exists(new_app_directory):
@@ -257,9 +267,7 @@ APPS = [
     "home",
 ]
 
-ROOT_URLCONF = "{project_name}.config.urls"
-
-WSGI_APPLICATION = "{project_name}.config.wsgi.application"        
+ROOT_URLCONF = "{project_name}.config.urls"\n
 """
         )
 

@@ -6,6 +6,7 @@ from pathlib import Path
 from types import ModuleType
 
 from aquilo.main import Aquilo
+from aquilo.utils import has_special_char
 
 settings = import_module(os.environ.get("AQUILO_SETTINGS_MODULE"))
 
@@ -66,11 +67,23 @@ def register_pages(application: str, module: ModuleType):
 
 
 def startapp_command(app_name: str):
+    if " " in app_name:
+        raise ValueError("App name cannot contain spaces.")
+
+    if app_name == "aquilo":
+        raise ValueError("Aquilo is a reserved name.")
+
+    if app_name in settings.APPS:
+        raise ValueError("App already exists.")
+
+    if has_special_char(app_name):
+        raise ValueError("App name cannot contain special characters.")
+
     app_directory = os.environ.get("AQUILO_APPS_MODULE").replace(".", os.sep)
     new_app_directory = Path(app_directory + os.sep + app_name)
 
     if os.path.exists(new_app_directory):
-        raise ValueError("App already exists.")
+        raise ValueError("Directory already exists.")
 
     os.makedirs(new_app_directory)
 
@@ -78,11 +91,9 @@ def startapp_command(app_name: str):
         init.write("")
 
     with open(f"{new_app_directory}/pages.py", "w") as pages:
-        pages.write(f"""from aquilo import build
-        
+        pages.write(f"""from aquilo import build\n\n
 def page_{app_name}():
-    pass
-""")
+    pass\n""")
 
 
 def format_code():
