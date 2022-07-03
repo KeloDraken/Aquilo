@@ -5,6 +5,8 @@ from inspect import getmembers, isfunction
 from pathlib import Path
 from types import ModuleType
 
+from typing import List
+
 from aquilo.main import Aquilo
 from aquilo.utils import has_special_char
 
@@ -13,7 +15,7 @@ settings = import_module(os.environ.get("AQUILO_SETTINGS_MODULE"))
 app = Aquilo(debug=settings.DEBUG)
 
 
-def validate_home_page(application: str, apps_list: list[str], module: ModuleType):
+def validate_home_page(application: str, apps_list: List[str], module: ModuleType):
     if application == apps_list[0]:
         homepage_function = list()
 
@@ -33,7 +35,7 @@ def validate_home_page(application: str, apps_list: list[str], module: ModuleTyp
 
 
 def runserver_command():
-    apps_list: list[str] = settings.APPS
+    apps_list: List[str] = settings.APPS
 
     if len(apps_list) == 0:
         raise ValueError("No apps specified." "Please specify apps in settings.APPS.")
@@ -100,22 +102,22 @@ def format_code():
     os.system(f"black {settings.BASE_DIR}")
 
 
-def execute_from_command_line(args: list[str]) -> None:
+def execute_from_command_line(args: List[str]) -> None:
     if len(args) == 1:
         raise ValueError("No command specified.")
 
-    match args[1]:
-        case "runserver":
-            runserver_command()
-        case "startapp":
-            try:
-                startapp_command(args[2])
-            except IndexError:
-                raise ValueError("No app name specified.")
-        case "format":
-            format_code()
-        case _:
-            raise ValueError("Invalid command.")
+    command: str = args[1]
+    if command == "runserver":
+        runserver_command()
+    elif command == "startapp":
+        try:
+            startapp_command(args[2])
+        except IndexError:
+            raise ValueError("No app name specified.")
+    elif command == "format":
+        format_code()
+    else:
+        raise ValueError("Invalid command.")
 
 
 def main():

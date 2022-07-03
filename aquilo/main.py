@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable
+from typing import Any, Callable, List, Tuple, Dict
 
 from aquilo.browser.elements.containers import div
 from aquilo.html import get_404, build
@@ -18,14 +18,14 @@ class Aquilo:
         self.ip = ip
         self.port = port
         self.element_tree = None
-        self._pages: dict[str, Any] = {}
+        self._pages: Dict[str, Any] = {}
         self.root = None
-        self._patterns: list[tuple[str, Callable]] = list()
+        self._patterns: List[Tuple[str, Callable]] = list()
         self.debug: bool = debug
 
     def page(self, function: Callable) -> Callable:
         function_name_with_dashes: str = function.__name__.replace("_", "/").lower()
-        name: list[str] = function_name_with_dashes.split("page/")
+        name: List[str] = function_name_with_dashes.split("page/")
 
         if len(name) == 1:
             raise ValueError("Invalid page name.")
@@ -33,7 +33,7 @@ class Aquilo:
         path_name: str = "{}".format(name[1] + "/")
 
         try:
-            path_list: list[str] = path_name.split("/")[:-1]
+            path_list: List[str] = path_name.split("/")[:-1]
 
             if path_list[0] == path_list[1]:
                 path_name = path_list[0] + "/"
@@ -43,7 +43,7 @@ class Aquilo:
 
         self._pages[path_name] = {"function": function}
 
-        pattern: tuple[str, Callable] = (path_name, function)
+        pattern: Tuple[str, Callable] = (path_name, function)
         self._patterns.append(pattern)
 
         return function
@@ -53,7 +53,7 @@ class Aquilo:
             raise TypeError("root must be a div")
         self.root: div = root
 
-    def _application(self, environ, start_response) -> list[bytes]:
+    def _application(self, environ, start_response) -> List[bytes]:
         start_response("200 OK", [("Content-Type", "text/html")])
 
         path: str = environ.get("PATH_INFO", "").lstrip("/")
@@ -61,7 +61,7 @@ class Aquilo:
         if not path.endswith("/"):
             path = path + "/"
 
-        pages: list[str] = list(self._pages.keys())
+        pages: List[str] = list(self._pages.keys())
 
         if path == "/" or path == "":
             html = self._pages[pages[0]]["function"]().encode()

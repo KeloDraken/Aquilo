@@ -214,7 +214,7 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/        
+#.idea/
         """
         )
 
@@ -222,7 +222,7 @@ cython_debug/
         readme_file.write(
             f"""# {project_name.capitalize()}
 
-This is a new Aquilo project.        
+This is a new Aquilo project.
         """
         )
 
@@ -288,14 +288,14 @@ def main():
     if len(sys.argv) == 1:
         raise ValueError("No command specified.")
 
-    match sys.argv[1]:
-        case "startproject":
-            try:
-                startproject(sys.argv[2].lower())
-            except IndexError:
-                raise ValueError("No project name specified.")
-        case _:
-            raise ValueError("Invalid command.")
+    command: str = sys.argv[1]
+    if command == "startproject":
+        try:
+            startproject(sys.argv[2].lower())
+        except IndexError:
+            raise ValueError("No project name specified.")
+    else:
+        raise ValueError("Invalid command.")
 
 
 if __name__ == "__main__":

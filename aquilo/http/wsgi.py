@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Any, List, Tuple
 from wsgiref.simple_server import make_server
 
-_URLPATTERNS: list[tuple[str, Any]] = list()
+_URLPATTERNS: List[Tuple[str, Any]] = list()
 
 
 def not_found(environ, start_response):
@@ -10,7 +10,7 @@ def not_found(environ, start_response):
     return ["Not Found".encode()]
 
 
-def urlpatterns(patterns: list[tuple[str, Any]]):
+def urlpatterns(patterns: List[Tuple[str, Any]]):
     global _URLPATTERNS
     _URLPATTERNS = patterns
 
@@ -27,7 +27,7 @@ def serve(host: str, ip: str, port: int, application: Any, debug: bool = True):
             print("Server listening on port http://localhost:8000...")
             try:
                 server.serve_forever()
-            except:
+            except KeyboardInterrupt:
                 server.shutdown()
                 return
     pass
