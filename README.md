@@ -13,17 +13,11 @@ and host them wherever you want.
 
 # Installation
 
-Aquilo is still under heavy development and is not available on Pypi yet, so you'll need to install it manually.
+Aquilo is still under heavy development and is an experiment, DO NOT USE IT IN PRODUCTION.
+However, it is available on the Pypi. To install, simply run:
 
-First you'll need to build the Aquilo package.
-
-```bash
-$ git clone https://github.com/KeloDraken/Aquilo
-$ cd Aquilo
-$ virtualenv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-$ python -m build
+```bash 
+$ pip install aquilo
 ```
 
 Then you can install it in your project via pip
