@@ -20,16 +20,6 @@ However, it is available on the Pypi. To install, simply run:
 $ pip install aquilo
 ```
 
-Then you can install it in your project via pip
-
-```bash
-$ mkdir <project_name>
-$ cd <project_name>
-$ virtualenv venv
-$ source venv/bin/activate
-$ pip install <path_to_aquilo_package>
-```
-
 # Usage
 
 Since Aquilo is heavily influenced by Django, some commands will be familiar.
