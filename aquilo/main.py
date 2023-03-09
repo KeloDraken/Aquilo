@@ -78,11 +78,11 @@ class Aquilo:
         urlpatterns(self._patterns)
         serve(self.host, self.ip, self.port, self._application, self.debug)
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> List[bytes]:
         print(args, kwargs)
         return self._application(*args)
 
-    def build_html(self, dir_path):
+    def build_html(self, dir_path) -> None:
         if os.path.exists(os.path.join(dir_path, "build")):
             import shutil
 

@@ -27,7 +27,7 @@ def build(element_tree: Callable, title: str = None, description: str = None) ->
     return html
 
 
-def get_404():
+def get_404() -> bytes:
     return """
 <!doctype html>
 <html lang="en">

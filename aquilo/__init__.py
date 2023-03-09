@@ -7,7 +7,7 @@ from aquilo.main import *
 from aquilo.utils import has_special_char
 
 
-def startproject(project_name: str):
+def startproject(project_name: str) -> None:
     if has_special_char(project_name):
         raise ValueError("Project name cannot contain special characters.")
 
@@ -242,13 +242,15 @@ This is a new Aquilo project.
         init_file.write("")
 
     with open(f"{os.getcwd()}/{project_name}/apps/home/pages.py", "w") as pages:
-        pages.write("""from aquilo import build, div, h1
+        pages.write(
+            """from aquilo import build, div, h1
 
 
 def page_home():
     root = div(h1(\"Hello World!\"))
     return build(root, title=\"Hello World!\")
-""")
+"""
+        )
 
     os.makedirs(f"{os.getcwd()}/{project_name}/config")
 
@@ -281,7 +283,7 @@ APPS = [
         pass
 
 
-def main():
+def main() -> None:
     import sys
 
     if len(sys.argv) == 1:

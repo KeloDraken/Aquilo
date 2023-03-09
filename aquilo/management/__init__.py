@@ -15,26 +15,30 @@ settings = import_module(os.environ.get("AQUILO_SETTINGS_MODULE"))
 app = Aquilo(debug=settings.DEBUG)
 
 
-def validate_home_page(application: str, apps_list: List[str], module: ModuleType):
-    if application == apps_list[0]:
-        homepage_function = list()
+def validate_home_page(
+    application: str, apps_list: List[str], module: ModuleType
+) -> None:
+    if application != apps_list[0]:
+        return
 
-        for member in getmembers(module, isfunction):
-            if member[0].startswith("page_"):
-                name = member[1].__name__.split("page_")
+    homepage_function = list()
 
-                if len(name) == 1:
-                    raise ValueError("Invalid page name.")
-                homepage_function.append(member[1])
+    for member in getmembers(module, isfunction):
+        if member[0].startswith("page_"):
+            name = member[1].__name__.split("page_")
 
-        if len(homepage_function) > 1:
-            raise ValueError(
-                "The homepage application must have only one function."
-                "Please remove the other functions."
-            )
+            if len(name) == 1:
+                raise ValueError("Invalid page name.")
+            homepage_function.append(member[1])
+
+    if len(homepage_function) > 1:
+        raise ValueError(
+            "The homepage application must have only one function."
+            "Please remove the other functions."
+        )
 
 
-def runserver_command():
+def runserver_command() -> None:
     apps_list: List[str] = settings.APPS
 
     if len(apps_list) == 0:
@@ -56,7 +60,7 @@ def runserver_command():
     app.run()
 
 
-def register_pages(application: str, module: ModuleType):
+def register_pages(application: str, module: ModuleType) -> None:
     for member in getmembers(module, isfunction):
         if member[0].startswith("page_"):
             name = member[1].__name__.split("page_")
@@ -68,7 +72,7 @@ def register_pages(application: str, module: ModuleType):
             app.page(member[1])
 
 
-def startapp_command(app_name: str):
+def startapp_command(app_name: str) -> None:
     if " " in app_name:
         raise ValueError("App name cannot contain spaces.")
 
@@ -93,12 +97,14 @@ def startapp_command(app_name: str):
         init.write("")
 
     with open(f"{new_app_directory}/pages.py", "w") as pages:
-        pages.write(f"""from aquilo import build\n\n
+        pages.write(
+            f"""from aquilo import build\n\n
 def page_{app_name}():
-    pass\n""")
+    pass\n"""
+        )
 
 
-def format_code():
+def format_code() -> None:
     os.system(f"black {settings.BASE_DIR}")
 
 
@@ -120,5 +126,5 @@ def execute_from_command_line(args: List[str]) -> None:
         raise ValueError("Invalid command.")
 
 
-def main():
+def main() -> None:
     execute_from_command_line(sys.argv)

@@ -2,11 +2,13 @@ from typing import List
 
 
 class Element:
-    def __init__(self,
-                 etype: str,
-                 text: str = None,
-                 eid: str = None,
-                 class_list: List[str] = None):
+    def __init__(
+        self,
+        etype: str,
+        text: str = None,
+        eid: str = None,
+        class_list: List[str] = None,
+    ):
         self.etype = etype
         self.hidden: bool = False
         self.eid: str = eid
@@ -16,7 +18,7 @@ class Element:
         self.title: str = ""
         self.class_list: List[str] = class_list
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args, **kwargs) -> str:
         if self.class_list is not None:
             return f"<{self.etype} class=\"{' '.join(self.class_list)}\">{self.innerHTML}</{self.etype}>"
         return f"<{self.etype}>{self.innerHTML}</{self.etype}>"
