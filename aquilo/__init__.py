@@ -267,7 +267,6 @@ APPS = [
     "home",
 ]
 
-ROOT_URLCONF = "{project_name}.config.urls"\n
 """
         )
 
