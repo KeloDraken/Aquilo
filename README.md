@@ -16,7 +16,7 @@ and host them wherever you want.
 Aquilo is still under heavy development and is an experiment, DO NOT USE IT IN PRODUCTION.
 However, it is available on the Pypi. To install, simply run:
 
-```bash 
+```bash
 $ pip install aquilo
 ```
 
@@ -27,7 +27,7 @@ Since Aquilo is heavily influenced by Django, some commands will be familiar.
 For example, if you want to create a new project, you can use the `aquilo startproject <project_name>` command.
 
 ```bash
-$ aquilo startproject my_project
+$ aquilo startproject myproject
 ```
 
 This will create a new project in the current directory.
