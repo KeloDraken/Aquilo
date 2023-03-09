@@ -1,3 +1,5 @@
+from typing import List
+
 from aquilo.browser.elements import Element
 
 
@@ -7,8 +9,9 @@ class Text(Element):
         etype: str,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(etype, text, eid)
+        super().__init__(etype, text, eid, class_list)
 
 
 class h1(Text):
@@ -16,8 +19,9 @@ class h1(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class h2(Text):
@@ -25,8 +29,9 @@ class h2(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class h3(Text):
@@ -34,8 +39,9 @@ class h3(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class h4(Text):
@@ -43,8 +49,9 @@ class h4(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class h5(Text):
@@ -52,8 +59,9 @@ class h5(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class h6(Text):
@@ -61,8 +69,9 @@ class h6(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class p(Text):
@@ -70,26 +79,9 @@ class p(Text):
         self,
         text: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
-
-
-class strong(Text):
-    def __init__(
-        self,
-        text: str,
-        eid: str = None,
-    ):
-        super().__init__(self.__class__.__name__, text, eid)
-
-
-class small(Text):
-    def __init__(
-        self,
-        text: str,
-        eid: str = None,
-    ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
 
 
 class a(Text):
@@ -98,9 +90,12 @@ class a(Text):
         text: str,
         href: str,
         eid: str = None,
+        class_list: List[str] = None
     ):
-        super().__init__(self.__class__.__name__, text, eid)
+        super().__init__(self.__class__.__name__, text, eid, class_list)
         self.href = href
 
     def __call__(self, *args, **kwargs):
+        if self.class_list is not None:
+            return f'<{self.etype} href="{self.href}" class=\"{" ".join(self.class_list)}\">{self.innerHTML}</{self.etype}>'
         return f'<{self.etype} href="{self.href}">{self.innerHTML}</{self.etype}>'
