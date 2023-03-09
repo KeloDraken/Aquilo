@@ -21,6 +21,7 @@ def build(element_tree: Callable, title: str = None, description: str = None) ->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head><body>{element_tree()}</body></html>
         """
     return html
